@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    docker.build('saumyabhardwaj/service1', '-f microservice_RND/service1/Dockerfile .')
+                    docker.build('saumyabhardwaj/service1', '"C:\ProgramData\Jenkins\.jenkins\workspace\service1\service1\Dockerfile"')
 
                 }
             }
