@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                // Checkout the source code from Git
+                git 'https://github.com/Raaz13falconess/microservice_RND'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image
+                script {
+                    docker.build('saumyabhardwaj/service1')
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                // Push the Docker image to Docker Hub
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', '457f9568-34c0-40ff-9717-1795edef0ef5') {
+                        docker.image('saumyabhardwaj/service1').push('latest')
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
