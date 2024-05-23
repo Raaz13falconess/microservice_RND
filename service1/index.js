@@ -6,6 +6,9 @@ const axios = require('axios');
 
 const PORT = 3000;
 
+const temp_variable = 3;
+console.log(temp_variable);
+
 app.get('/', async (req, res) => {
   try {
     const randomString = generateRandomString();
