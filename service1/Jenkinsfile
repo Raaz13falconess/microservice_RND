@@ -10,7 +10,7 @@ pipeline {
             steps {
                 // Checkout the source code from Git
                 git branch: 'master', credentialsId: 'd5ac5898-95e4-49af-bc75-bd14ea14ed43', url: 'https://github.com/Raaz13falconess/microservice_RND', 
-                changelog: false, poll: false, directory: 'microservice_RND/service1'
+                changelog: false, poll: false, relative: 'service1'
 
             }
         }
