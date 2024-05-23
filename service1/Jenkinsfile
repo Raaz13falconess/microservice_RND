@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    environment {
+        DOCKER_CREDENTIALS_ID = '457f9568-34c0-40ff-9717-1795edef0ef5'
+    }
+    
     stages {
         stage('Build') {
             steps {
@@ -20,7 +24,7 @@ pipeline {
             steps {
                 // Push the Docker image to Docker Hub
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', '457f9568-34c0-40ff-9717-1795edef0ef5') {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
                         docker.image('saumyabhardwaj/service1').push('latest')
                     }
                 }
