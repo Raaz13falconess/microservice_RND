@@ -16,7 +16,8 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    docker.build('saumyabhardwaj/service1')
+                    docker.build('saumyabhardwaj/service1', '-f microservice_RND/service1/Dockerfile .')
+
                 }
             }
         }
