@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_CREDENTIALS_ID = '457f9568-34c0-40ff-9717-1795edef0ef5'
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                // Checkout the source code from Git
+                git branch: 'master', credentialsId: 'd5ac5898-95e4-49af-bc75-bd14ea14ed43', url: 'https://github.com/Raaz13falconess/microservice_RND'
+
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image
+                script {
+                    docker.build('saumyabhardwaj/service3', '-f service3/Dockerfile .')
+
+                }
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                // Push the Docker image to Docker Hub
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDENTIALS_ID) {
+                        docker.image('saumyabhardwaj/service3').push('latest')
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
